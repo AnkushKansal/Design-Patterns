@@ -2,19 +2,25 @@ pub use std::sync::Mutex;
 pub use std::thread;
 
 pub struct Counter {
-    pub value: usize,
+    value: usize, //private data
 }
 
-
-//private, one instance, fixed memory in data segment
-static COUNTER: Mutex<Counter> = Mutex::new(Counter { value: 0 });
-
 impl Counter {
+    //pub getter to private data
+    pub fn increment_value(&mut self) {
+        self.value += 1;
+    }
+    pub fn get_value(&self) -> usize {
+        self.value
+    }
     //returning ref to STATIC variable, so that no need to use Arc<Mutex<Counter>> and can be used directly in multiple threads
     pub fn get_counter() -> &'static Mutex<Counter> {
         &COUNTER
     }
 }
+
+//private, global instance, fixed memory in data segment
+static COUNTER: Mutex<Counter> = Mutex::new(Counter { value: 0 });
 
 #[cfg(test)]
 mod singleton_tests {

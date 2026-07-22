@@ -16,7 +16,7 @@ fn main() {
         .map(|_| {
             thread::spawn(move || {
                 let mut counter = counter.lock().unwrap();
-                (*counter).value += 1;
+                counter.increment_value();
             })
         })
         .collect();
@@ -27,6 +27,6 @@ fn main() {
 
     println!(
         "Counter value in main binary is : {}",
-        counter.lock().unwrap().value
+        counter.lock().unwrap().get_value()
     );
 }
