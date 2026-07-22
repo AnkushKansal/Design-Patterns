@@ -1,3 +1,2 @@
-.vscode
-singleton/target
-abstract_factory/target
+Creational/singleton/target
+Creational/abstract_factory/target
