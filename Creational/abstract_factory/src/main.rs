@@ -17,7 +17,7 @@ fn main() {
         "stripe" => Arc::new(StripeFactory),
         "paypal" => Arc::new(PaypalFactory),
         _ => {
-            println!("Invalid payment provider");
+            eprintln!("Invalid payment provider");
             return;
         }
     };
