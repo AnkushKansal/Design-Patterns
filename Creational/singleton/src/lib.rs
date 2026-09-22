@@ -14,13 +14,11 @@ impl Counter {
         self.value
     }
     //returning ref to STATIC variable, so that no need to use Arc<Mutex<Counter>> and can be used directly in multiple threads
-    pub fn get_counter() -> &'static Mutex<Counter> {
+    pub fn get_counter() -> &'static Mutex<Self> {
+        static COUNTER: Mutex<Counter> = Mutex::new(Counter { value: 0 });
         &COUNTER
     }
 }
-
-//private, global instance, fixed memory in data segment
-static COUNTER: Mutex<Counter> = Mutex::new(Counter { value: 0 });
 
 #[cfg(test)]
 mod singleton_tests {
